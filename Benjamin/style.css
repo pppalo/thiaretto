@@ -455,8 +455,54 @@ body::before {
   pointer-events: none;
 }
 
-@media (pointer: coarse), (max-width: 850px) {
-  .copyright-text {
-    display: none;
+/* ════════════ MEJORAS MÓVIL ════════════ */
+@media (pointer: coarse) {
+  /* Canvas más pequeño para dejar espacio a los controles */
+  #gameScreen {
+    padding-top: 4px;
+    gap: 4px;
   }
+
+  .canvas-wrap {
+    max-height: 52vh;
+  }
+
+  /* Botones más grandes y fáciles de presionar */
+  .mb {
+    width: 58px;
+    height: 58px;
+    font-size: 1.4rem;
+    border-radius: 14px;
+    border-width: 2.5px;
+  }
+
+  .mb-ice {
+    width: 110px;
+    height: 58px;
+    font-size: 1rem;
+  }
+
+  .mob-ctrl-container {
+    bottom: 8px;
+    padding: 0 10px;
+  }
+
+  .mob-row {
+    gap: 6px;
+  }
+
+  .mob-1p .mob-left {
+    gap: 6px;
+  }
+
+  /* HUD más compacto */
+  .hud {
+    padding: 4px 10px;
+    gap: 5px;
+  }
+
+  .hud-lbl { font-size: 0.7rem; }
+  .lv-icon { font-size: 0.95rem; }
+  .level-pill { font-size: 0.75rem; padding: 2px 9px; }
+  .fruit-ctr { font-size: 0.8rem; }
 }

@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 const result = await response.json();
                 if (result.success) {
-                    alert('¡Mensaje enviado y guardado en MongoDB correctamente!');
+                    alert('¡Gracias por contactarnos! Te responderemos a la brevedad.');
                     contactForm.reset();
                 } else {
                     alert('Hubo un error al enviar el mensaje.');
