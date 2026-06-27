@@ -15,7 +15,7 @@ app.use(express.static('./')); // Servir archivos estáticos del frontend
 // Conexión a MongoDB
 mongoose.connect(process.env.MONGODB_URI)
     .then(async () => {
-        console.log('✅ Conectado a MongoDB local');
+        console.log('✅ Conectado a MongoDB Atlas');
         
         // Crear un motivo por defecto si no existe
         let defaultMotivo = await Motivo.findOne({ nombre: 'Contacto General' });
@@ -59,7 +59,7 @@ app.post('/api/requests', async (req, res) => {
 });
 
 // Iniciar Servidor
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`🚀 Servidor backend corriendo en http://localhost:${PORT}`);
+    console.log(`🚀 Servidor backend corriendo en puerto ${PORT}`);
 });
