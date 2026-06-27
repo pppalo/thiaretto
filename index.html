@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>thiaretto - Portafolio</title>
+    <!-- Fuentes de Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Archivos CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container header-content">
+            <div class="logo">
+                <h1>thiaretto</h1>
+            </div>
+            <div class="theme-switch">
+                <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+                    <img id="icon-sun" class="icon" src="./assets/sun.png" alt="Sol" />
+                    <img id="icon-moon" class="icon hidden" src="./assets/moon.png" alt="Luna" />
+                </button>
+            </div>
+        </div>
+        <div class="container">
+            <nav class="tab-nav">
+                <button class="tab-link active" data-tab="equipo">Nuestro equipo</button>
+                <button class="tab-link" data-tab="intereses">Quiénes somos</button>
+                <button class="tab-link" data-tab="contacto">Contáctanos</button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Pestaña: Equipo -->
+        <div id="equipo" class="tab-content active">
+            <section class="profiles-section">
+                <div class="container">
+                    <h2 class="section-title">Integrantes</h2>
+                    <div class="profiles-container">
+                    <div class="profile-card expanded-card">
+                        <img src="./assets/benjamin.png" alt="Perfil Benjamin" class="profile-img">
+                        <div class="profile-info">
+                            <h3 class="profile-name">Benjamin</h3>
+                            <p class="profile-title">Ingeniería de Ejecución en Informática</p>
+                            <ul class="profile-resume">
+                                <li><strong>Experiencia:</strong> Desarrollo Web, Creador de Juegos</li>
+                                <li><strong>Pasatiempos:</strong> Escuchar música, Programar</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="profile-card expanded-card">
+                        <img src="./assets/javiera.png" alt="Perfil Javiera" class="profile-img">
+                        <div class="profile-info">
+                            <h3 class="profile-name">Javiera</h3>
+                            <p class="profile-title">Ingeniería de Ejecución en Informática</p>
+                            <ul class="profile-resume">
+                                <li><strong>Experiencia:</strong> Se dedica a pintar</li>
+                                <li><strong>Pasatiempos:</strong> qiere toooo 💩</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="profile-card expanded-card">
+                        <img src="./assets/paloma.png" alt="Perfil Paloma" class="profile-img">
+                        <div class="profile-info">
+                            <h3 class="profile-name">Paloma</h3>
+                            <p class="profile-title">Ingeniería de Ejecución en Informática</p>
+                            <ul class="profile-resume">
+                                <li><strong>Experiencia:</strong> Desarrolladora</li>
+                                <li><strong>Pasatiempos:</strong> Perrear hasta el suelo</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Pestaña: Intereses -->
+        <div id="intereses" class="tab-content">
+            <section class="hero">
+                <div class="container hero-container single-column">
+                    <div class="hero-card presentation-card">
+                        <h2 class="subtitle">Desarrollo y Soluciones Creativas</h2>
+                        <p class="presentation">
+                            Somos una startup especializada en la realización de desarrollo y programación de diferentes proyectos (ej: páginas web, video juegos), contamos con una amplia experiencia en el área.
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Pestaña: Contacto -->
+        <div id="contacto" class="tab-content">
+            <section class="hero">
+                <div class="container hero-container contact-rectangular">
+                    <div class="hero-card contact-card-centered">
+                        <form id="contactForm" class="contact-form-split">
+                            <div class="contact-left">
+                                <div class="form-group">
+                                    <label for="name">Nombre</label>
+                                    <input type="text" id="name" name="name" placeholder="Tu nombre" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Correo</label>
+                                    <input type="email" id="email" name="email" placeholder="correo@ejemplo.com" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Teléfono</label>
+                                    <input type="tel" id="phone" name="phone" placeholder="+56 4567 8900" required>
+                                </div>
+                            </div>
+                            <div class="contact-right">
+                                <div class="form-group textarea-group">
+                                    <label for="request">Motivo</label>
+                                    <textarea id="request" name="request" placeholder="Escribe tu solicitud aquí..." required></textarea>
+                                </div>
+                                <button type="submit" class="submit-btn">Enviar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Sección del Juego -->
+        <section class="game-section">
+            <div class="container">
+                <h2 class="section-title">Nuestro juego arcade: BAD BENJAMIN</h2>
+                
+                <div class="game-container">
+                    <div class="game-frame-wrapper">
+                        <!-- Incrustando el juego desde la carpeta Benjamin -->
+                        <iframe src="./Benjamin/index.html" class="game-iframe" title="Juego Benjamin" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 thiaretto. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>

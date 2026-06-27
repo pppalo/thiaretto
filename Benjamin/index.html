@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BAD BENJAMIN</title>
+  <link rel="icon" type="image/png" href="Assets/icon.png" />
+  <meta name="description" content="Juego de slimes cooperativo para 1 o 2 jugadores." />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Copyright info -->
+  <div class="copyright-text">&copy; BenjaminG, PalomaCH, JavieraZ.</div>
+
+  <!-- ══════ MENÚ ══════ -->
+  <div class="screen active" id="menuScreen">
+
+    <div class="menu-layout">
+      <!-- Lado Izquierdo: Título y Controles -->
+      <div class="menu-left">
+        <div class="title-box">
+          <h1 class="game-title">BAD BENJAMIN</h1>
+          <p class="game-sub">Javiera & Paloma vs el malvado Benja</p>
+        </div>
+
+        <!-- Controles -->
+        <div class="ctrl-box">
+          <h3>🎮 Controles</h3>
+          <p id="ctrlP1">⬆⬇⬅➡ / WASD — Mover &nbsp;|&nbsp; Espacio / F — Lanzar gelatina</p>
+          <p id="ctrlP2" style="display:none">J2: ⬆⬇⬅➡ + Espacio &nbsp;|&nbsp; J1: WASD + F</p>
+          <p>🍒 Recoge <strong>todas las frutas</strong> para avanzar</p>
+        </div>
+
+        <!-- Selección de modo -->
+        <div class="mode-row">
+          <button class="btn-mode active" id="btn1p" onclick="setMode('1p')">🎮 1 Jugador</button>
+          <button class="btn-mode"        id="btn2p" onclick="setMode('2p')">👥 2 Jugadores</button>
+        </div>
+      </div>
+
+      <!-- Lado Derecho: Selector de Personajes -->
+      <div class="menu-right">
+
+        <!-- Sección de Selección de Personajes -->
+        <div class="char-select-section">
+          <p class="section-lbl" id="charSelectLbl">Elige tu personaje</p>
+          <div class="char-cards">
+            <div class="char-card selected" data-char="javiera" id="cardJaviera" onclick="selectChar('javiera')">
+              <img src="Assets/icon-skin.png" class="char-action-btn" alt="Skin" onclick="toggleSkin(event, 'javiera');" />
+              <div class="player-tag" id="tagJaviera">J1</div>
+              <div class="preview-bg">
+                <img src="Assets/Sprit_Javiera/Javiera.png" class="char-preview" alt="Javiera" />
+              </div>
+              <div class="char-name">Javiera</div>
+            </div>
+
+            <div class="char-card" data-char="paloma" id="cardPaloma" onclick="selectChar('paloma')">
+              <img src="Assets/icon-skin.png" class="char-action-btn" alt="Skin" onclick="toggleSkin(event, 'paloma');" />
+              <div class="player-tag" id="tagPaloma" style="opacity:0">J2</div>
+              <div class="preview-bg">
+                <img src="Assets/Sprit_Paloma/Paloma.png" class="char-preview" alt="Paloma" />
+              </div>
+              <div class="char-name">Paloma</div>
+            </div>
+            
+            <div class="char-card" data-char="sofia" id="cardSofia" onclick="selectChar('sofia')">
+              <img src="Assets/icon-skin.png" class="char-action-btn" alt="Skin" onclick="toggleSkin(event, 'sofia');" />
+              <div class="player-tag" id="tagSofia" style="opacity:0">J2</div>
+              <div class="preview-bg">
+                <img src="Assets/Sprit_Sofia/Sofia.png" class="char-preview" alt="Sofia" />
+              </div>
+              <div class="char-name">Sofía</div>
+            </div>
+
+            <div class="char-card" data-char="gbenja" id="cardGbenja" onclick="selectChar('gbenja')">
+              <img src="Assets/icon-skin.png" class="char-action-btn" alt="Skin" onclick="toggleSkin(event, 'gbenja');" />
+              <div class="player-tag" id="tagGbenja" style="opacity:0">J2</div>
+              <div class="preview-bg">
+                <img src="Assets/Sprite_Gbenja/Gbenja.png" class="char-preview" alt="Gbenja" />
+              </div>
+              <div class="char-name">Gbenja</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <div style="text-align:center; margin-top:15px; display:flex; justify-content:center; gap:15px;">
+        <button class="btn btn-neutral" onclick="startReno()">🦌 Reno</button>
+        <button class="btn btn-pink" onclick="startGame()">▶ ¡A jugar!</button>
+        <button class="btn btn-purple" id="btnSecretMob" onclick="startSecretMobile()" style="display:none;">👁️ Nivel Secreto</button>
+      </div>
+  </div>
+
+  <!-- ══════ PANTALLA DE JUEGO ══════ -->
+  <div class="screen" id="gameScreen">
+    <div class="hud">
+      <!-- Jugador 1 -->
+      <div class="hud-seg">
+        <span class="hud-lbl" id="hudLblP1">Vidas</span>
+        <div class="lives-row" id="livesRowP1"></div>
+      </div>
+      <!-- Nivel -->
+      <div class="hud-seg">
+        <span class="level-pill" id="lvlPill">Nivel 1</span>
+      </div>
+      <!-- Frutas -->
+      <div class="hud-seg" id="hudFruits">
+        <div class="fruit-ctr">
+          <span>🍒</span><span id="fruitsNum">0</span>
+          <span class="hud-lbl">restantes</span>
+        </div>
+      </div>
+      <!-- Puntuación Reno -->
+      <div class="hud-seg" id="hudScore" style="display:none; color: gold; font-weight: bold; font-size: 1.2rem;">
+        <span id="scoreText">0 - 0</span>
+      </div>
+      <!-- Jugador 2 (oculto en 1P) -->
+      <div class="hud-seg" id="hudP2" style="display:none">
+        <span class="hud-lbl" id="hudLblP2">J2</span>
+        <div class="lives-row" id="livesRowP2"></div>
+      </div>
+    </div>
+
+    <div class="canvas-wrap">
+      <canvas id="gameCanvas"></canvas>
+    </div>
+
+    <!-- Controles móviles -->
+    <div class="mob-ctrl-container" id="mobCtrlContainer">
+      <!-- Controles 1 Jugador -->
+      <div class="mob-ctrl mob-1p" id="mobCtrl1P">
+        <div class="mob-left">
+          <div class="mob-row" style="justify-content: center;">
+            <button class="mb"
+              ontouchstart="mobKonami('up'); mkP('up',this)"   ontouchend="mkR('up',this)"
+              onmousedown="mobKonami('up'); mkP('up',this)"    onmouseup="mkR('up',this)">⬆</button>
+          </div>
+          <div class="mob-row">
+            <button class="mb"
+              ontouchstart="mobKonami('left'); mkP('left',this)" ontouchend="mkR('left',this)"
+              onmousedown="mobKonami('left'); mkP('left',this)"  onmouseup="mkR('left',this)">⬅</button>
+            <button class="mb"
+              ontouchstart="mobKonami('down'); mkP('down',this)" ontouchend="mkR('down',this)"
+              onmousedown="mobKonami('down'); mkP('down',this)"  onmouseup="mkR('down',this)">⬇</button>
+            <button class="mb"
+              ontouchstart="mobKonami('right'); mkP('right',this)" ontouchend="mkR('right',this)"
+              onmousedown="mobKonami('right'); mkP('right',this)"  onmouseup="mkR('right',this)">➡</button>
+          </div>
+        </div>
+        <div class="mob-right">
+          <button class="mb mb-ice" id="mobIceBtn"
+            ontouchstart="mobKonami('ice'); doIceP1()" onmousedown="mobKonami('ice'); doIceP1()">🫧 Gelatina</button>
+        </div>
+      </div>
+
+      <!-- Controles 2 Jugadores -->
+      <div class="mob-ctrl mob-2p" id="mobCtrl2P" style="display:none;">
+        <div class="mob-p1-ctrl">
+          <div class="mob-row" style="justify-content: center;">
+            <button class="mb"
+              ontouchstart="mkP('up',this)"   ontouchend="mkR('up',this)"
+              onmousedown="mkP('up',this)"    onmouseup="mkR('up',this)">⬆</button>
+          </div>
+          <div class="mob-row">
+            <button class="mb"
+              ontouchstart="mkP('left',this)" ontouchend="mkR('left',this)"
+              onmousedown="mkP('left',this)"  onmouseup="mkR('left',this)">⬅</button>
+            <button class="mb"
+              ontouchstart="mkP('down',this)" ontouchend="mkR('down',this)"
+              onmousedown="mkP('down',this)"  onmouseup="mkR('down',this)">⬇</button>
+            <button class="mb"
+              ontouchstart="mkP('right',this)" ontouchend="mkR('right',this)"
+              onmousedown="mkP('right',this)"  onmouseup="mkR('right',this)">➡</button>
+          </div>
+          <div class="mob-row" style="justify-content: center; margin-top: 8px;">
+            <button class="mb mb-ice" id="mobIceBtnP1"
+              ontouchstart="doIceP1()" onmousedown="doIceP1()">🫧 Gelatina J1</button>
+          </div>
+        </div>
+
+        <div class="mob-p2-ctrl">
+          <div class="mob-row" style="justify-content: center; margin-bottom: 8px;">
+            <button class="mb mb-ice" id="mobIceBtnP2"
+              ontouchstart="doIceP2()" onmousedown="doIceP2()">🫧 Gelatina J2</button>
+          </div>
+          <div class="mob-row" style="justify-content: center;">
+            <button class="mb"
+              ontouchstart="mkP2('up',this)"   ontouchend="mkR2('up',this)"
+              onmousedown="mkP2('up',this)"    onmouseup="mkR2('up',this)">⬆</button>
+          </div>
+          <div class="mob-row">
+            <button class="mb"
+              ontouchstart="mkP2('left',this)" ontouchend="mkR2('left',this)"
+              onmousedown="mkP2('left',this)"  onmouseup="mkR2('left',this)">⬅</button>
+            <button class="mb"
+              ontouchstart="mkP2('down',this)" ontouchend="mkR2('down',this)"
+              onmousedown="mkP2('down',this)"  onmouseup="mkR2('down',this)">⬇</button>
+            <button class="mb"
+              ontouchstart="mkP2('right',this)" ontouchend="mkR2('right',this)"
+              onmousedown="mkP2('right',this)"  onmouseup="mkR2('right',this)">➡</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Anuncio de nivel -->
+  <div id="lvlAnnounce"><div id="laText"></div></div>
+
+  <!-- ══════ CINEMÁTICA ══════ -->
+  <div id="cinematicScreen">
+    <video id="cinematicVideo" playsinline></video>
+    <button id="skipBtn" onclick="skipCinematic()">Saltar ⏭</button>
+  </div>
+
+  <!-- ══════ OVERLAYS ══════ -->
+  <div class="overlay" id="ovLevelDone">
+    <div class="ov-card">
+      <div class="ov-title col-next" id="ovLvlT">¡Nivel Completado!</div>
+      <div class="ov-sub"          id="ovLvlS">Avanzas al siguiente nivel…</div>
+      <div class="ov-btns">
+        <button class="btn btn-blue" onclick="goNextLevel()">Siguiente Nivel →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay" id="ovGameOver">
+    <div class="ov-card">
+      <div class="ov-title col-lose">😵 ¡Perdieron!</div>
+      <div class="ov-sub">Se acabaron las vidas. ¡No se dejen atrapar!</div>
+      <div class="ov-btns">
+        <button class="btn btn-pink"    onclick="restartFull()">🔄 Reiniciar</button>
+        <button class="btn btn-neutral" onclick="goMenu()">🏠 Menú</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay" id="ovWin">
+    <div class="ov-card">
+      <div class="ov-title col-win">🏆 ¡Ganaron!</div>
+      <div class="ov-sub" id="ovWinS">¡Derrotaron a Benja!</div>
+      <div class="ov-btns">
+        <button class="btn btn-pink"    onclick="restartFull()">🔄 Jugar de Nuevo</button>
+        <button class="btn btn-neutral" onclick="goMenu()">🏠 Menú</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DVD Boss & Arm overlays for Level 4 -->
+  <img id="dvdBoss" src="Assets/Boss.png" style="display:none; position:fixed; width:200px; height:auto; pointer-events:none;" />
+  <img id="dvdArm" src="Assets/Arm.png" style="display:none; position:fixed; width:300px; height:auto; pointer-events:none; z-index:100;" />
+
+  <!-- Botón de Silencio -->
+  <button id="muteBtn" onclick="toggleMute()" style="position: fixed; bottom: 20px; left: 20px; z-index: 10000; background-color: #ff69b4; color: white; border: 3px solid #fff; border-radius: 50%; width: 50px; height: 50px; font-size: 1.2rem; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center;" title="Silenciar / Activar sonido">🔊</button>
+
+  <script src="game.js"></script>
+  <script>
+    let isMuted = false;
+    function toggleMute() {
+      isMuted = !isMuted;
+      document.getElementById('muteBtn').textContent = isMuted ? '🔇' : '🔊';
+      if (typeof bgMusicZ !== 'undefined') bgMusicZ.muted = isMuted;
+      if (typeof bgMusicReno !== 'undefined') bgMusicReno.muted = isMuted;
+      if (typeof eatSound !== 'undefined') eatSound.muted = isMuted;
+    }
+  </script>
+</body>
+</html>
