@@ -2,7 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
-// Importar modelos traducidos
 const Cliente = require('./models/Cliente');
 const Motivo = require('./models/Motivo');
 const Solicitud = require('./models/Solicitud');
@@ -10,41 +9,37 @@ const Solicitud = require('./models/Solicitud');
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use(express.static('./')); // Servir archivos estáticos del frontend
+app.use(express.static('./'));
 
-// Conexión a MongoDB
 mongoose.connect(process.env.MONGODB_URI)
-    .then(async () => {
-        console.log('✅ Conectado a MongoDB Atlas');
-        
-        // Crear un motivo por defecto si no existe
-        let defaultMotivo = await Motivo.findOne({ nombre: 'Contacto General' });
-        if (!defaultMotivo) {
-            defaultMotivo = await Motivo.create({ nombre: 'Contacto General', descripcion: 'Mensajes enviados desde el formulario web' });
-        }
-    })
+    .then(() => console.log('✅ Conectado a MongoDB Atlas'))
     .catch(err => console.error('❌ Error conectando a MongoDB:', err));
 
-// Ruta principal para procesar el formulario
 app.post('/api/requests', async (req, res) => {
     try {
-        const { name, email, phone, request } = req.body;
+        const { name, email, phone, tipo, request } = req.body;
 
-        // 1. Buscar si el cliente ya existe por su correo, si no, lo creamos
+        if (!tipo) {
+            return res.status(400).json({ success: false, message: 'Debes seleccionar un tipo de contacto' });
+        }
+
+        // Buscar o crear el cliente
         let cliente = await Cliente.findOne({ correo: email });
         if (!cliente) {
             cliente = await Cliente.create({ nombre: name, correo: email, telefono: phone });
         } else {
-            // Actualizar datos si es que cambiaron (ej: teléfono nuevo)
             cliente.nombre = name;
             cliente.telefono = phone;
             await cliente.save();
         }
 
-        // 2. Obtener el motivo por defecto
-        const motivo = await Motivo.findOne({ nombre: 'Contacto General' });
+        // Buscar o crear el motivo según lo que eligió el usuario
+        let motivo = await Motivo.findOne({ nombre: tipo });
+        if (!motivo) {
+            motivo = await Motivo.create({ nombre: tipo, descripcion: 'Creado desde el formulario web' });
+        }
 
-        // 3. Crear la solicitud referenciando a Cliente y Motivo
+        // Crear la solicitud
         const newSolicitud = await Solicitud.create({
             mensaje: request,
             cliente: cliente._id,
@@ -58,7 +53,6 @@ app.post('/api/requests', async (req, res) => {
     }
 });
 
-// Iniciar Servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`🚀 Servidor backend corriendo en puerto ${PORT}`);

@@ -70,37 +70,38 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- FORMULARIO DE CONTACTO ---
-    const contactForm = document.getElementById('contactForm');
-    if (contactForm) {
-        contactForm.addEventListener('submit', async (e) => {
-            e.preventDefault(); // Evitar que la página recargue
+    // --- FORMULARIO DE CONTACTO ---
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-            const formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                request: document.getElementById('request').value
-            };
+        const formData = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            tipo: document.getElementById('tipo').value,
+            request: document.getElementById('request').value
+        };
 
-            try {
-                // Hacer POST al backend Node.js
-                const response = await fetch('/api/requests', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(formData)
-                });
-                
-                const result = await response.json();
-                if (result.success) {
-                    alert('¡Gracias por contactarnos! Te responderemos a la brevedad.');
-                    contactForm.reset();
-                } else {
-                    alert('Hubo un error al enviar el mensaje.');
-                }
-            } catch (error) {
-                console.error(error);
-                alert('No se pudo conectar al servidor. Asegúrate de ejecutar el backend (node server.js).');
+        try {
+            const response = await fetch('/api/requests', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+            
+            const result = await response.json();
+            if (result.success) {
+                alert('¡Gracias por contactarnos! Te responderemos a la brevedad.');
+                contactForm.reset();
+            } else {
+                alert('Hubo un error al enviar el mensaje.');
             }
-        });
-    }
+        } catch (error) {
+            console.error(error);
+            alert('No se pudo conectar al servidor. Asegúrate de ejecutar el backend (node server.js).');
+        }
+    });
+}
 });

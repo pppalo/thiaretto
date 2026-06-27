@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>thiaretto - Portafolio</title>
-    <!-- Fuentes de Google -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <!-- Archivos CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -111,6 +109,17 @@
                                     <label for="phone">Teléfono</label>
                                     <input type="tel" id="phone" name="phone" placeholder="+56 4567 8900" required>
                                 </div>
+                                <div class="form-group">
+                                    <label for="tipo">Tipo de contacto</label>
+                                    <select id="tipo" name="tipo" required>
+                                        <option value="" disabled selected>Selecciona una opción</option>
+                                        <option value="Propuesta Laboral">💼 Propuesta Laboral</option>
+                                        <option value="Consulta">❓ Consulta</option>
+                                        <option value="Ayuda Técnica">🛠️ Ayuda Técnica</option>
+                                        <option value="Proyecto Web">🌐 Proyecto Web</option>
+                                        <option value="Otro">📌 Otro</option>
+                                    </select>
+                                </div>
                             </div>
                             <div class="contact-right">
                                 <div class="form-group textarea-group">
@@ -129,10 +138,8 @@
         <section class="game-section">
             <div class="container">
                 <h2 class="section-title">Nuestro juego arcade: BAD BENJAMIN</h2>
-                
                 <div class="game-container">
                     <div class="game-frame-wrapper">
-                        <!-- Incrustando el juego desde la carpeta Benjamin -->
                         <iframe src="./Benjamin/index.html" class="game-iframe" title="Juego Benjamin" allowfullscreen></iframe>
                     </div>
                 </div>
