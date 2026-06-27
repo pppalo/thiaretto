@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.static('./')); // Servir archivos estáticos del frontend
 
 // Conexión a MongoDB
-mongoose.connect('mongodb://127.0.0.1:27017/thiarettoDB')
+mongoose.connect(process.env.MONGODB_URI)
     .then(async () => {
         console.log('✅ Conectado a MongoDB local');
         
