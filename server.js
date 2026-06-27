@@ -24,7 +24,6 @@ app.post('/api/requests', async (req, res) => {
             return res.status(400).json({ success: false, message: 'Debes seleccionar un tipo de contacto' });
         }
 
-        // Buscar o crear el cliente
         let cliente = await Cliente.findOne({ correo: email });
         if (!cliente) {
             cliente = await Cliente.create({ nombre: name, correo: email, telefono: phone });
@@ -34,13 +33,11 @@ app.post('/api/requests', async (req, res) => {
             await cliente.save();
         }
 
-        // Buscar o crear el motivo según lo que eligió el usuario
         let motivo = await Motivo.findOne({ nombre: tipo });
         if (!motivo) {
             motivo = await Motivo.create({ nombre: tipo, descripcion: 'Creado desde el formulario web' });
         }
 
-        // Crear la solicitud
         const newSolicitud = await Solicitud.create({
             mensaje: request,
             cliente: cliente._id,
@@ -112,6 +109,21 @@ app.get('/api/solicitudes/por-motivo', async (req, res) => {
             { $sort: { total: -1 } }
         ]);
         res.json({ success: true, data: resultado });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// ── ACTUALIZAR - cliente por id ──
+app.put('/api/clientes/:id', async (req, res) => {
+    try {
+        const { nombre, correo, telefono } = req.body;
+        const cliente = await Cliente.findByIdAndUpdate(
+            req.params.id,
+            { nombre, correo, telefono },
+            { new: true }
+        );
+        res.json({ success: true, message: 'Cliente actualizado', data: cliente });
     } catch (error) {
         res.status(500).json({ success: false, error: error.message });
     }
