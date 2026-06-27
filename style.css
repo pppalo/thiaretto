@@ -483,3 +483,30 @@ body {
         grid-template-columns: 1fr;
     }
 }
+/* ── Notificación formulario ── */
+.notificacion {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: var(--accent-color);
+    color: #fff;
+    padding: 16px 28px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    box-shadow: 0 8px 24px var(--shadow-color);
+    z-index: 999;
+    transition: all 0.4s ease;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.notificacion.oculta {
+    opacity: 0;
+    transform: translateY(30px);
+    pointer-events: none;
+}
+
+.notificacion.error {
+    background-color: #e53e3e;
+}
