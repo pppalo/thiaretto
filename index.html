@@ -38,40 +38,40 @@
                 <div class="container">
                     <h2 class="section-title">Integrantes</h2>
                     <div class="profiles-container">
-                    <div class="profile-card expanded-card">
-                        <img src="./assets/benjamin.png" alt="Perfil Benjamin" class="profile-img">
-                        <div class="profile-info">
-                            <h3 class="profile-name">Benjamin</h3>
-                            <p class="profile-title">Ingeniería de Ejecución en Informática</p>
-                            <ul class="profile-resume">
-                                <li><strong>Experiencia:</strong> Desarrollo Web, Creador de Juegos</li>
-                                <li><strong>Pasatiempos:</strong> Escuchar música, Programar</li>
-                            </ul>
+                        <div class="profile-card expanded-card">
+                            <img src="./assets/benjamin.png" alt="Perfil Benjamin" class="profile-img">
+                            <div class="profile-info">
+                                <h3 class="profile-name">Benjamin</h3>
+                                <p class="profile-title">Ingeniería de Ejecución en Informática</p>
+                                <ul class="profile-resume">
+                                    <li><strong>Experiencia:</strong> Desarrollo Web, Creador de Juegos</li>
+                                    <li><strong>Pasatiempos:</strong> Escuchar música, Programar</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="profile-card expanded-card">
+                            <img src="./assets/javiera.png" alt="Perfil Javiera" class="profile-img">
+                            <div class="profile-info">
+                                <h3 class="profile-name">Javiera</h3>
+                                <p class="profile-title">Ingeniería de Ejecución en Informática</p>
+                                <ul class="profile-resume">
+                                    <li><strong>Experiencia:</strong> Se dedica a pintar</li>
+                                    <li><strong>Pasatiempos:</strong> qiere toooo 💩</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="profile-card expanded-card">
+                            <img src="./assets/paloma.png" alt="Perfil Paloma" class="profile-img">
+                            <div class="profile-info">
+                                <h3 class="profile-name">Paloma</h3>
+                                <p class="profile-title">Ingeniería de Ejecución en Informática</p>
+                                <ul class="profile-resume">
+                                    <li><strong>Experiencia:</strong> Desarrolladora</li>
+                                    <li><strong>Pasatiempos:</strong> Perrear hasta el suelo</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                    <div class="profile-card expanded-card">
-                        <img src="./assets/javiera.png" alt="Perfil Javiera" class="profile-img">
-                        <div class="profile-info">
-                            <h3 class="profile-name">Javiera</h3>
-                            <p class="profile-title">Ingeniería de Ejecución en Informática</p>
-                            <ul class="profile-resume">
-                                <li><strong>Experiencia:</strong> Se dedica a pintar</li>
-                                <li><strong>Pasatiempos:</strong> qiere toooo 💩</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="profile-card expanded-card">
-                        <img src="./assets/paloma.png" alt="Perfil Paloma" class="profile-img">
-                        <div class="profile-info">
-                            <h3 class="profile-name">Paloma</h3>
-                            <p class="profile-title">Ingeniería de Ejecución en Informática</p>
-                            <ul class="profile-resume">
-                                <li><strong>Experiencia:</strong> Desarrolladora</li>
-                                <li><strong>Pasatiempos:</strong> Perrear hasta el suelo</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
                 </div>
             </section>
         </div>
@@ -155,8 +155,12 @@
     </footer>
 
     <!-- Notificación formulario -->
-    <div id="notificacion" class="notificacion oculta">
-        <span id="notificacionTexto"></span>
+    <div id="notificacionOverlay" class="notificacion-overlay oculta">
+        <div id="notificacion" class="notificacion">
+            <div class="notificacion-icono" id="notificacionIcono">🎉</div>
+            <div class="notificacion-texto" id="notificacionTexto"></div>
+            <button class="notificacion-btn" onclick="cerrarNotificacion()">Aceptar</button>
+        </div>
     </div>
 
     <script src="main.js"></script>
