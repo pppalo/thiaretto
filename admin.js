@@ -43,6 +43,17 @@ function formatFecha(iso) {
         + ' ' + d.toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit' });
 }
 
+// ── Color por estado ──
+function colorEstado(estado) {
+    switch (estado) {
+        case 'Pendiente':   return '#f59e0b';
+        case 'En revisión': return '#3b82f6';
+        case 'En proceso':  return '#8b5cf6';
+        case 'Resuelto':    return '#10b981';
+        default:            return '#6b7280';
+    }
+}
+
 // ════════════════════════════════════════════
 //  CARGAR DATOS
 // ════════════════════════════════════════════
@@ -114,7 +125,15 @@ async function cargarSolicitudes() {
                 </td>
                 <td>${s.motivo?.nombre || '-'}</td>
                 <td>${s.mensaje}</td>
-                <td><span class="estado-badge">${s.estado || 'Pendiente'}</span></td>
+                <td>
+                    <select class="estado-select" onchange="cambiarEstado('${s._id}', this.value)"
+                        style="border-color: ${colorEstado(s.estado || 'Pendiente')}; color: ${colorEstado(s.estado || 'Pendiente')}">
+                        <option value="Pendiente"   ${s.estado === 'Pendiente'   ? 'selected' : ''}>🟡 Pendiente</option>
+                        <option value="En revisión" ${s.estado === 'En revisión' ? 'selected' : ''}>🔵 En revisión</option>
+                        <option value="En proceso"  ${s.estado === 'En proceso'  ? 'selected' : ''}>🟠 En proceso</option>
+                        <option value="Resuelto"    ${s.estado === 'Resuelto'    ? 'selected' : ''}>🟢 Resuelto</option>
+                    </select>
+                </td>
                 <td>${formatFecha(s.createdAt)}</td>
             </tr>
         `).join('');
@@ -163,6 +182,34 @@ async function cargarMotivos() {
 // ════════════════════════════════════════════
 //  OPERACIONES CRUD
 // ════════════════════════════════════════════
+
+// ── Cambiar Estado de Solicitud ──
+async function cambiarEstado(id, nuevoEstado) {
+    try {
+        const res = await fetch('/api/solicitudes/' + id + '/estado', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ estado: nuevoEstado })
+        });
+        const json = await res.json();
+        if (json.success) {
+            showToast('✅ Estado actualizado: ' + nuevoEstado);
+            // Actualizar color del select
+            const selects = document.querySelectorAll('.estado-select');
+            selects.forEach(sel => {
+                if (sel.value === nuevoEstado) {
+                    sel.style.borderColor = colorEstado(nuevoEstado);
+                    sel.style.color = colorEstado(nuevoEstado);
+                }
+            });
+        } else {
+            showToast('❌ Error al actualizar el estado');
+        }
+    } catch (error) {
+        console.error('Error al cambiar estado:', error);
+        showToast('❌ Error de conexión');
+    }
+}
 
 // ── Eliminar Cliente ──
 async function eliminarCliente(id, nombre) {

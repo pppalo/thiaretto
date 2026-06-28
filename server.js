@@ -129,6 +129,21 @@ app.put('/api/clientes/:id', async (req, res) => {
     }
 });
 
+// ── ACTUALIZAR - estado de solicitud ──
+app.put('/api/solicitudes/:id/estado', async (req, res) => {
+    try {
+        const { estado } = req.body;
+        const solicitud = await Solicitud.findByIdAndUpdate(
+            req.params.id,
+            { estado },
+            { new: true }
+        );
+        res.json({ success: true, message: 'Estado actualizado', data: solicitud });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
 // ── ELIMINAR - cliente por id ──
 app.delete('/api/clientes/:id', async (req, res) => {
     try {

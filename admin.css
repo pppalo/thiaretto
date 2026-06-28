@@ -467,3 +467,19 @@ tr:hover td {
         font-size: 0.78rem;
     }
 }
+/* ── Selector de estado ── */
+.estado-select {
+    padding: 6px 10px;
+    border-radius: 20px;
+    border: 2px solid;
+    background: transparent;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    outline: none;
+}
+.estado-select:hover {
+    opacity: 0.8;
+}
