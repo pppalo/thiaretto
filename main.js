@@ -66,12 +66,12 @@ document.addEventListener('DOMContentLoaded', () => {
         texto.textContent = mensaje;
         icono.textContent = esError ? '❌' : '🎉';
         notif.classList.toggle('error', esError);
-        overlay.classList.remove('oculta');
+        overlay.classList.add('visible');
     }
 
     // ── Cerrar notificación ──
     window.cerrarNotificacion = function() {
-        document.getElementById('notificacionOverlay').classList.add('oculta');
+        document.getElementById('notificacionOverlay').classList.remove('visible');
     };
 
     // ── Formulario de contacto ──
