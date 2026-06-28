@@ -32,11 +32,47 @@
     </header>
 
     <main>
+        <!-- ── BANNER HERO ── -->
+        <section class="hero-banner">
+            <div class="container hero-banner-content">
+                <p class="hero-banner-sub">Bienvenido a</p>
+                <h1 class="hero-banner-title">thiaretto</h1>
+                <p class="hero-banner-desc">Desarrollo web, videojuegos y soluciones creativas</p>
+                <div class="hero-counters">
+                    <div class="counter-item">
+                        <span class="counter-num" data-target="3">0</span>
+                        <span class="counter-lbl">Integrantes</span>
+                    </div>
+                    <div class="counter-item">
+                        <span class="counter-num" data-target="1">0</span>
+                        <span class="counter-lbl">Juego creado</span>
+                    </div>
+                    <div class="counter-item">
+                        <span class="counter-num" data-target="100">0</span>
+                        <span class="counter-lbl">% Dedicación</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Pestaña: Equipo -->
         <div id="equipo" class="tab-content active">
             <section class="profiles-section">
                 <div class="container">
                     <h2 class="section-title">Integrantes</h2>
+
+                    <!-- Habilidades -->
+                    <div class="skills-row">
+                        <div class="skill-badge">🌐 HTML</div>
+                        <div class="skill-badge">🎨 CSS</div>
+                        <div class="skill-badge">⚡ JavaScript</div>
+                        <div class="skill-badge">🍃 MongoDB</div>
+                        <div class="skill-badge">🟢 Node.js</div>
+                        <div class="skill-badge">🚂 Express</div>
+                        <div class="skill-badge">🎮 Canvas API</div>
+                        <div class="skill-badge">🐙 GitHub</div>
+                    </div>
+
                     <div class="profiles-container">
                         <div class="profile-card expanded-card">
                             <img src="./assets/benjamin.png" alt="Perfil Benjamin" class="profile-img">
@@ -47,6 +83,12 @@
                                     <li><strong>Experiencia:</strong> Desarrollo Web, Creador de Juegos</li>
                                     <li><strong>Pasatiempos:</strong> Escuchar música, Programar</li>
                                 </ul>
+                                <div class="profile-socials">
+                                    <a href="https://github.com/pppalo" target="_blank" class="social-btn">
+                                        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                                        GitHub
+                                    </a>
+                                </div>
                             </div>
                         </div>
                         <div class="profile-card expanded-card">
@@ -58,6 +100,12 @@
                                     <li><strong>Experiencia:</strong> Se dedica a pintar</li>
                                     <li><strong>Pasatiempos:</strong> qiere toooo 💩</li>
                                 </ul>
+                                <div class="profile-socials">
+                                    <a href="#" target="_blank" class="social-btn">
+                                        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                                        GitHub
+                                    </a>
+                                </div>
                             </div>
                         </div>
                         <div class="profile-card expanded-card">
@@ -69,6 +117,12 @@
                                     <li><strong>Experiencia:</strong> Desarrolladora</li>
                                     <li><strong>Pasatiempos:</strong> Perrear hasta el suelo</li>
                                 </ul>
+                                <div class="profile-socials">
+                                    <a href="https://github.com/pppalo" target="_blank" class="social-btn">
+                                        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                                        GitHub
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -79,12 +133,40 @@
         <!-- Pestaña: Intereses -->
         <div id="intereses" class="tab-content">
             <section class="hero">
-                <div class="container hero-container single-column">
-                    <div class="hero-card presentation-card">
-                        <h2 class="subtitle">Desarrollo y Soluciones Creativas</h2>
-                        <p class="presentation">
-                            Somos una startup especializada en la realización de desarrollo y programación de diferentes proyectos (ej: páginas web, video juegos), contamos con una amplia experiencia en el área.
-                        </p>
+                <div class="container">
+                    <div class="quienes-grid">
+                        <div class="hero-card presentation-card">
+                            <h2 class="subtitle">Desarrollo y Soluciones Creativas</h2>
+                            <p class="presentation">
+                                Somos una startup especializada en la realización de desarrollo y programación de diferentes proyectos (ej: páginas web, video juegos), contamos con una amplia experiencia en el área.
+                            </p>
+                            <div class="quienes-stats">
+                                <div class="qstat">
+                                    <span class="qstat-num">3</span>
+                                    <span class="qstat-lbl">Desarrolladores</span>
+                                </div>
+                                <div class="qstat">
+                                    <span class="qstat-num">100%</span>
+                                    <span class="qstat-lbl">Compromiso</span>
+                                </div>
+                                <div class="qstat">
+                                    <span class="qstat-num">∞</span>
+                                    <span class="qstat-lbl">Creatividad</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="video-card">
+                            <h2 class="subtitle">¿Por qué la programación?</h2>
+                            <div class="video-wrapper">
+                                <iframe
+                                    src="https://www.youtube.com/embed/ysEN5RaKOlA"
+                                    title="¿Por qué programar?"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen>
+                                </iframe>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -155,7 +237,7 @@
     </footer>
 
     <!-- Notificación formulario -->
-    <div id="notificacionOverlay" class="notificacion-overlay oculta">
+    <div id="notificacionOverlay" class="notificacion-overlay">
         <div id="notificacion" class="notificacion">
             <div class="notificacion-icono" id="notificacionIcono">🎉</div>
             <div class="notificacion-texto" id="notificacionTexto"></div>

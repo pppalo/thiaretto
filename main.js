@@ -3,9 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const iconSun = document.getElementById('icon-sun');
     const iconMoon = document.getElementById('icon-moon');
 
-    // Revisar preferencia guardada
     const currentTheme = localStorage.getItem('theme');
-    
     if (currentTheme) {
         document.documentElement.setAttribute('data-theme', currentTheme);
         if (currentTheme === 'dark') {
@@ -20,10 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Funcionalidad de cambiar tema
     themeToggleBtn.addEventListener('click', () => {
         let theme = document.documentElement.getAttribute('data-theme');
-        
         if (theme === 'dark') {
             document.documentElement.removeAttribute('data-theme');
             localStorage.setItem('theme', 'light');
@@ -37,7 +33,35 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Funcionalidad de pestañas
+    // ── Contadores animados ──
+    function animarContador(el) {
+        const target = parseInt(el.getAttribute('data-target'));
+        const duration = 1500;
+        const step = target / (duration / 16);
+        let current = 0;
+        const timer = setInterval(() => {
+            current += step;
+            if (current >= target) {
+                current = target;
+                clearInterval(timer);
+            }
+            el.textContent = Math.floor(current);
+        }, 16);
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                document.querySelectorAll('.counter-num').forEach(animarContador);
+                observer.disconnect();
+            }
+        });
+    }, { threshold: 0.5 });
+
+    const banner = document.querySelector('.hero-banner');
+    if (banner) observer.observe(banner);
+
+    // ── Tabs ──
     const tabLinks = document.querySelectorAll('.tab-link');
     const tabContents = document.querySelectorAll('.tab-content');
 
@@ -62,24 +86,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const notif = document.getElementById('notificacion');
         const texto = document.getElementById('notificacionTexto');
         const icono = document.getElementById('notificacionIcono');
-
         texto.textContent = mensaje;
         icono.textContent = esError ? '❌' : '🎉';
         notif.classList.toggle('error', esError);
         overlay.classList.add('visible');
     }
 
-    // ── Cerrar notificación ──
     window.cerrarNotificacion = function() {
         document.getElementById('notificacionOverlay').classList.remove('visible');
     };
 
-    // ── Formulario de contacto ──
+    // ── Formulario ──
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-
             const formData = {
                 name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
@@ -87,14 +108,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 tipo: document.getElementById('tipo').value,
                 request: document.getElementById('request').value
             };
-
             try {
                 const response = await fetch('/api/requests', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(formData)
                 });
-                
                 const result = await response.json();
                 if (result.success) {
                     mostrarNotificacion('¡Gracias por contactarnos! Te responderemos a la brevedad.');
