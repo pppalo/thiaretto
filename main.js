@@ -58,13 +58,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ── Notificación ──
     function mostrarNotificacion(mensaje, esError = false) {
+        const overlay = document.getElementById('notificacionOverlay');
         const notif = document.getElementById('notificacion');
         const texto = document.getElementById('notificacionTexto');
+        const icono = document.getElementById('notificacionIcono');
+
         texto.textContent = mensaje;
-        notif.classList.remove('oculta', 'error');
-        if (esError) notif.classList.add('error');
-        setTimeout(() => notif.classList.add('oculta'), 4000);
+        icono.textContent = esError ? '❌' : '🎉';
+        notif.classList.toggle('error', esError);
+        overlay.classList.remove('oculta');
     }
+
+    // ── Cerrar notificación ──
+    window.cerrarNotificacion = function() {
+        document.getElementById('notificacionOverlay').classList.add('oculta');
+    };
 
     // ── Formulario de contacto ──
     const contactForm = document.getElementById('contactForm');
@@ -89,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 const result = await response.json();
                 if (result.success) {
-                    mostrarNotificacion('¡Gracias por contactarnos! Te responderemos a la brevedad. 🎉');
+                    mostrarNotificacion('¡Gracias por contactarnos! Te responderemos a la brevedad.');
                     contactForm.reset();
                 } else {
                     mostrarNotificacion('Hubo un error al enviar el mensaje.', true);
