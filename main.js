@@ -33,6 +33,51 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // ── Typing effect ──
+    const textos = [
+        'Desarrollo web, videojuegos y soluciones creativas',
+        'Transformamos ideas en proyectos reales',
+        'Código, creatividad y dedicación'
+    ];
+    let textoIdx = 0;
+    let charIdx = 0;
+    let borrando = false;
+    const descEl = document.getElementById('heroBannerDesc');
+
+    if (descEl) {
+        const cursor = document.createElement('span');
+        cursor.className = 'typing-cursor';
+        descEl.textContent = '';
+        descEl.appendChild(cursor);
+
+        function typing() {
+            const textoActual = textos[textoIdx];
+            if (!borrando) {
+                charIdx++;
+                descEl.textContent = textoActual.slice(0, charIdx);
+                descEl.appendChild(cursor);
+                if (charIdx === textoActual.length) {
+                    borrando = true;
+                    setTimeout(typing, 2000);
+                    return;
+                }
+                setTimeout(typing, 55);
+            } else {
+                charIdx--;
+                descEl.textContent = textoActual.slice(0, charIdx);
+                descEl.appendChild(cursor);
+                if (charIdx === 0) {
+                    borrando = false;
+                    textoIdx = (textoIdx + 1) % textos.length;
+                    setTimeout(typing, 400);
+                    return;
+                }
+                setTimeout(typing, 30);
+            }
+        }
+        setTimeout(typing, 800);
+    }
+
     // ── Contadores animados ──
     function animarContador(el) {
         const target = parseInt(el.getAttribute('data-target'));
@@ -61,6 +106,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const banner = document.querySelector('.hero-banner');
     if (banner) observer.observe(banner);
 
+    // ── Animación skills al cargar ──
+    const skills = document.querySelectorAll('.skill-badge');
+    skills.forEach((badge, i) => {
+        setTimeout(() => badge.classList.add('visible'), 100 + i * 80);
+    });
+
     // ── Tabs ──
     const tabLinks = document.querySelectorAll('.tab-link');
     const tabContents = document.querySelectorAll('.tab-content');
@@ -77,6 +128,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const headerHeight = header ? header.offsetHeight : 0;
             const elementPos = targetElement.getBoundingClientRect().top + window.scrollY;
             window.scrollTo({ top: elementPos - headerHeight - 20, behavior: 'smooth' });
+
+            // Re-animar skills si vuelve a la pestaña equipo
+            if (targetId === 'equipo') {
+                document.querySelectorAll('.skill-badge').forEach(b => b.classList.remove('visible'));
+                setTimeout(() => {
+                    document.querySelectorAll('.skill-badge').forEach((b, i) => {
+                        setTimeout(() => b.classList.add('visible'), 100 + i * 80);
+                    });
+                }, 100);
+            }
         });
     });
 
